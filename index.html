@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
     <title>IndieTachado | Phee & Negi Edition</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -134,7 +136,7 @@
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--twitch-purple);
-            background: #333; /* Color de fondo mientras carga */
+            background: #333;
         }
 
         .name {
@@ -218,15 +220,13 @@
         <input type="text" id="search" class="search-input" placeholder="Busca a Phee o Negi...">
     </div>
 
-    <section class="vtuber-grid" id="grid">
-        </section>
+    <section class="vtuber-grid" id="grid"></section>
 
     <footer>
         <p>Hecho con ❤️ por la comunidad indie hispana – 2025</p>
     </footer>
 
     <script>
-        // DATOS DE LAS INDIES
         const indies = [
             {
                 name: "PheeTea",
@@ -245,7 +245,6 @@
         const grid = document.getElementById('grid');
         const search = document.getElementById('search');
 
-        // Función para renderizar
         function displayIndies(filter = '') {
             grid.innerHTML = '';
             
@@ -254,10 +253,7 @@
             );
 
             filtered.forEach(i => {
-                // URL de Twitch
                 const twitchImg = `https://static-cdn.jtvnw.net/jtv_user_pictures/${i.user}-profile_image-300x300.png`;
-                
-                // Imagen de respaldo por si falla Twitch (usamos un avatar estilizado)
                 const backupImg = `https://api.dicebear.com/7.x/adventurer/svg?seed=${i.user}&backgroundColor=9146FF`;
 
                 const card = document.createElement('div');
@@ -265,6 +261,7 @@
                 card.innerHTML = `
                     <div class="avatar-frame">
                         <img src="${twitchImg}" 
+                             referrerpolicy="no-referrer"
                              alt="${i.name}" 
                              onerror="this.onerror=null; this.src='${backupImg}';">
                     </div>
@@ -281,12 +278,8 @@
             });
         }
 
-        // Escuchar el buscador
         search.addEventListener('input', (e) => displayIndies(e.target.value));
-
-        // Ejecutar al cargar
         displayIndies();
     </script>
 </body>
 </html>
-
