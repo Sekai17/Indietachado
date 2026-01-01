@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="referrer" content="no-referrer">
+    
     <title>IndieTachado | Phee & Negi Edition</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -225,16 +227,19 @@
     </footer>
 
     <script>
+        // DATOS CON URLS REALES DE TWITCH (ESTÁTICAS)
         const indies = [
             {
                 name: "PheeTea",
                 user: "pheeteavt",
+                image: "https://static-cdn.jtvnw.net/jtv_user_pictures/51012891-b3b0-4613-8647-1981881656f5-profile_image-300x300.png",
                 bio: "Te cuento un cuento antes de dormir ☕❀",
                 live: true
             },
             {
                 name: "Negimi",
                 user: "negimilive",
+                image: "https://static-cdn.jtvnw.net/jtv_user_pictures/80097726-25f3-4d69-a83d-649033327660-profile_image-300x300.png",
                 bio: "Vibes misteriosas y diversión en cada stream 🌙",
                 live: false
             }
@@ -251,15 +256,16 @@
             );
 
             filtered.forEach(i => {
-                const twitchImg = `https://static-cdn.jtvnw.net/jtv_user_pictures/${i.user}-profile_image-300x300.png`;
+                // Imagen de respaldo animada si Twitch falla totalmente
                 const backupImg = `https://api.dicebear.com/7.x/adventurer/svg?seed=${i.user}&backgroundColor=9146FF`;
 
                 const card = document.createElement('div');
                 card.className = 'card';
                 card.innerHTML = `
                     <div class="avatar-frame">
-                        <img src="${twitchImg}" 
+                        <img src="${i.image}" 
                              alt="${i.name}" 
+                             referrerpolicy="no-referrer"
                              onerror="this.onerror=null; this.src='${backupImg}';">
                     </div>
                     <h2 class="name">${i.name}</h2>
