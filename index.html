@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="IndieTachado — El directorio de VTubers indies: Phee & Negi Edition.">
-    <meta name="referrer" content="no-referrer">
+    <!-- Relajé la política de referer para evitar que algunas CDNs bloqueen la imagen -->
+    <meta name="referrer" content="no-referrer-when-downgrade">
     
     <title>IndieTachado | Phee & Negi Edition</title>
     
@@ -196,8 +197,9 @@
 
     <header id="main-header">
         <div class="logo-box">
-            <svg class="glider-icon" viewBox="0 0 24 24">
-                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+            <svg class="glider-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <!-- SVG simplificado para evitar path roto -->
+                <circle cx="12" cy="12" r="9"></circle>
             </svg>
             <div class="x-over">X</div>
         </div>
@@ -259,7 +261,6 @@
                              alt="${i.name}" 
                              width="220" height="220"
                              loading="lazy" decoding="async"
-                             referrerpolicy="no-referrer"
                              onerror="this.onerror=null; this.src='${backupImg}';">
                     </div>
                     <h2 class="name">${i.name}</h2>
