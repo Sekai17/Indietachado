@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IndieTachado | Phee & Negi Edition</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Luckiest+Guy&family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg-dark: #121212;
+            --card-bg: #1e1e1e;
+            --twitch-purple: #9146FF;
+            --banned-red: #ff0000;
+            --neon-yellow: #f0ff00;
+            --live-green: #00ff7b;
+            --text-white: #f5f5f5;
+            --transition: all 0.3s ease;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-white);
+            padding-top: 180px;
+            overflow-x: hidden;
+        }
+
+        /* --- HEADER --- */
+        header {
+            position: fixed;
+            top: 0; left: 0; width: 100%;
+            background: rgba(18, 18, 18, 0.98);
+            z-index: 1000;
+            padding: 20px;
+            border-bottom: 3px solid var(--twitch-purple);
+            text-align: center;
+        }
+
+        .logo-box {
+            position: relative;
+            display: inline-block;
+        }
+
+        .glider-icon {
+            width: 60px;
+            fill: var(--twitch-purple);
+            filter: drop-shadow(0 0 10px var(--twitch-purple));
+        }
+
+        .x-over {
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Luckiest Guy';
+            font-size: 100px;
+            color: var(--banned-red);
+            text-shadow: 0 0 20px black;
+            line-height: 0;
+            pointer-events: none;
+        }
+
+        .main-title {
+            font-family: 'Luckiest Guy', cursive;
+            font-size: 3rem;
+            margin-top: 10px;
+        }
+
+        .main-title span { color: var(--banned-red); }
+
+        /* --- BUSCADOR --- */
+        .search-area {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 18px 30px;
+            border-radius: 50px;
+            border: 2px solid #333;
+            background: #1e1e1e;
+            color: white;
+            font-size: 1.2rem;
+            outline: none;
+            transition: var(--transition);
+        }
+
+        .search-input:focus {
+            border-color: var(--twitch-purple);
+            box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
+        }
+
+        /* --- GRID --- */
+        .vtuber-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
+            gap: 40px;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 30px;
+            padding: 30px;
+            text-align: center;
+            border: 2px solid #2a2a2a;
+            transition: var(--transition);
+        }
+
+        .card:hover {
+            transform: scale(1.05);
+            border-color: var(--twitch-purple);
+            box-shadow: 0 15px 40px rgba(145, 70, 255, 0.2);
+        }
+
+        .avatar-frame {
+            width: 220px;
+            height: 220px;
+            margin: 0 auto 20px;
+            position: relative;
+        }
+
+        .avatar-frame img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid var(--twitch-purple);
+            background: #333; /* Color de fondo mientras carga */
+        }
+
+        .name {
+            font-family: 'Luckiest Guy', cursive;
+            color: var(--neon-yellow);
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .badges {
+            margin-bottom: 15px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 800;
+            margin: 2px;
+            color: black;
+        }
+
+        .b-indie { background: var(--banned-red); color: white; }
+        .b-live { background: var(--live-green); animation: blink 1s infinite; }
+        .b-es { background: #00d4ff; }
+
+        .bio {
+            color: #ccc;
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .btn-twitch {
+            display: block;
+            background: var(--twitch-purple);
+            color: white;
+            text-decoration: none;
+            padding: 15px;
+            border-radius: 15px;
+            font-weight: 800;
+            transition: var(--transition);
+        }
+
+        .btn-twitch:hover {
+            background: #b180ff;
+            transform: translateY(-3px);
+        }
+
+        @keyframes blink {
+            50% { opacity: 0.5; }
+        }
+
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            opacity: 0.6;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .main-title { font-size: 2rem; }
+            body { padding-top: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo-box">
+            <svg class="glider-icon" viewBox="0 0 24 24">
+                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
+            </svg>
+            <div class="x-over">X</div>
+        </div>
+        <h1 class="main-title">INDIE<span>TACHADO</span></h1>
+        <p>Pequeñas vs Gigantes 🐻 vs 🦈</p>
+    </header>
+
+    <div class="search-area">
+        <input type="text" id="search" class="search-input" placeholder="Busca a Phee o Negi...">
+    </div>
+
+    <section class="vtuber-grid" id="grid">
+        </section>
+
+    <footer>
+        <p>Hecho con ❤️ por la comunidad indie hispana – 2025</p>
+    </footer>
+
+    <script>
+        // DATOS DE LAS INDIES
+        const indies = [
+            {
+                name: "PheeTea",
+                user: "pheeteavt",
+                bio: "Te cuento un cuento antes de dormir ☕❀",
+                live: true
+            },
+            {
+                name: "Negimi",
+                user: "negimilive",
+                bio: "Vibes misteriosas y diversión en cada stream 🌙",
+                live: false
+            }
+        ];
+
+        const grid = document.getElementById('grid');
+        const search = document.getElementById('search');
+
+        // Función para renderizar
+        function displayIndies(filter = '') {
+            grid.innerHTML = '';
+            
+            const filtered = indies.filter(i => 
+                i.name.toLowerCase().includes(filter.toLowerCase())
+            );
+
+            filtered.forEach(i => {
+                // URL de Twitch
+                const twitchImg = `https://static-cdn.jtvnw.net/jtv_user_pictures/${i.user}-profile_image-300x300.png`;
+                
+                // Imagen de respaldo por si falla Twitch (usamos un avatar estilizado)
+                const backupImg = `https://api.dicebear.com/7.x/adventurer/svg?seed=${i.user}&backgroundColor=9146FF`;
+
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerHTML = `
+                    <div class="avatar-frame">
+                        <img src="${twitchImg}" 
+                             alt="${i.name}" 
+                             onerror="this.onerror=null; this.src='${backupImg}';">
+                    </div>
+                    <h2 class="name">${i.name}</h2>
+                    <div class="badges">
+                        <span class="badge b-indie">INDIE</span>
+                        <span class="badge b-es">ES</span>
+                        ${i.live ? '<span class="badge b-live">EN VIVO</span>' : ''}
+                    </div>
+                    <p class="bio">${i.bio}</p>
+                    <a href="https://twitch.tv/${i.user}" target="_blank" class="btn-twitch">Ver en Twitch</a>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        // Escuchar el buscador
+        search.addEventListener('input', (e) => displayIndies(e.target.value));
+
+        // Ejecutar al cargar
+        displayIndies();
+    </script>
+</body>
+</html>
+
