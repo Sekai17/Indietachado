@@ -3,10 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="IndieTachado — El directorio de VTubers indies: Phee & Negi Edition.">
-    <!-- Relajé la política de referer para evitar que algunas CDNs bloqueen la imagen -->
-    <meta name="referrer" content="no-referrer-when-downgrade">
-    
+    <meta name="description" content="IndieTachado | Directorio de VTubers indie hispanas destacadas: Phee & Negi Edition. Pequeñas vs Gigantes 🐻 vs 🦈">
     <title>IndieTachado | Phee & Negi Edition</title>
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,22 +16,17 @@
             --card-bg: #1e1e1e;
             --twitch-purple: #9146FF;
             --banned-red: #ff0000;
-            --neon-yellow: #f0ff00;
+            --neon-yellow: #ffff4d; /* tono más cálido y legible */
             --live-green: #00ff7b;
             --text-white: #f5f5f5;
-            /* Mejora 6: Transiciones específicas en lugar de 'all' */
-            --transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+            --text-gray: #cccccc;
+            --transition: all 0.3s ease;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        /* Mejora 4: Clase para accesibilidad (lectores de pantalla) */
-        .sr-only {
-            position: absolute;
-            width: 1px; height: 1px;
-            padding: 0; margin: -1px;
-            overflow: hidden; clip: rect(0 0 0 0);
-            white-space: nowrap; border: 0;
+        html {
+            scroll-padding-top: 180px; /* compensa el header fijo */
         }
 
         body {
@@ -42,22 +34,26 @@
             background-color: var(--bg-dark);
             color: var(--text-white);
             overflow-x: hidden;
-            /* Mejora 3: El padding-top ahora se maneja dinámicamente con JS */
+            line-height: 1.6;
         }
 
+        /* --- HEADER --- */
         header {
             position: fixed;
             top: 0; left: 0; width: 100%;
             background: rgba(18, 18, 18, 0.98);
+            backdrop-filter: blur(10px);
             z-index: 1000;
             padding: 20px;
             border-bottom: 3px solid var(--twitch-purple);
             text-align: center;
         }
 
-        .logo-box { position: relative; display: inline-block; }
+        .logo-box {
+            position: relative;
+            display: inline-block;
+        }
 
-        /* Mejora 1: SVG corregido (Path completo del logo de Twitch) */
         .glider-icon {
             width: 60px;
             fill: var(--twitch-purple);
@@ -68,7 +64,7 @@
             position: absolute;
             top: 50%; left: 50%;
             transform: translate(-50%, -50%);
-            font-family: 'Luckiest Guy';
+            font-family: 'Luckiest Guy', cursive;
             font-size: 100px;
             color: var(--banned-red);
             text-shadow: 0 0 20px black;
@@ -84,9 +80,15 @@
 
         .main-title span { color: var(--banned-red); }
 
+        header p {
+            margin-top: 8px;
+            opacity: 0.9;
+        }
+
+        /* --- BUSCADOR --- */
         .search-area {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 40px auto 20px;
             padding: 0 20px;
         }
 
@@ -95,7 +97,7 @@
             padding: 18px 30px;
             border-radius: 50px;
             border: 2px solid #333;
-            background: #1e1e1e;
+            background: var(--card-bg);
             color: white;
             font-size: 1.2rem;
             outline: none;
@@ -107,12 +109,17 @@
             box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
         }
 
+        /* --- GRID --- */
+        main {
+            min-height: 60vh;
+        }
+
         .vtuber-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 400px));
             gap: 40px;
             justify-content: center;
-            padding: 40px 20px;
+            padding: 20px;
         }
 
         .card {
@@ -122,22 +129,27 @@
             text-align: center;
             border: 2px solid #2a2a2a;
             transition: var(--transition);
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.6s ease forwards;
         }
 
         .card:hover {
-            transform: scale(1.05);
+            transform: scale(1.05) translateY(-5px);
             border-color: var(--twitch-purple);
             box-shadow: 0 15px 40px rgba(145, 70, 255, 0.2);
         }
 
         .avatar-frame {
-            width: 220px; height: 220px;
+            width: 220px;
+            height: 220px;
             margin: 0 auto 20px;
             position: relative;
         }
 
         .avatar-frame img {
-            width: 100%; height: 100%;
+            width: 100%;
+            height: 100%;
             border-radius: 50%;
             object-fit: cover;
             border: 5px solid var(--twitch-purple);
@@ -149,30 +161,44 @@
             color: var(--neon-yellow);
             font-size: 2rem;
             margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(255, 255, 77, 0.3);
+        }
+
+        .badges {
+            margin-bottom: 15px;
         }
 
         .badge {
             display: inline-block;
-            padding: 5px 12px;
-            border-radius: 6px;
-            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.85rem;
             font-weight: 800;
-            margin: 2px;
+            margin: 4px;
             color: black;
         }
 
         .b-indie { background: var(--banned-red); color: white; }
-        .b-live { background: var(--live-green); animation: blink 1s infinite; }
         .b-es { background: #00d4ff; }
+        .b-live { 
+            background: var(--live-green); 
+            animation: livePulse 2s infinite ease-in-out;
+            box-shadow: 0 0 10px var(--live-green);
+        }
 
-        .bio { color: #ccc; margin-bottom: 25px; font-style: italic; }
+        .bio {
+            color: var(--text-gray);
+            margin-bottom: 25px;
+            font-style: italic;
+            min-height: 3em;
+        }
 
         .btn-twitch {
-            display: block;
+            display: inline-block;
             background: var(--twitch-purple);
             color: white;
             text-decoration: none;
-            padding: 15px;
+            padding: 15px 30px;
             border-radius: 15px;
             font-weight: 800;
             transition: var(--transition);
@@ -183,37 +209,68 @@
             transform: translateY(-3px);
         }
 
-        @keyframes blink { 50% { opacity: 0.5; } }
-
-        /* Mejora 6.1: Respetar preferencias de movimiento reducido */
-        @media (prefers-reduced-motion: reduce) {
-            * { animation: none !important; transition: none !important; }
+        .no-results {
+            grid-column: 1 / -1;
+            text-align: center;
+            font-size: 1.4rem;
+            color: #888;
+            padding: 60px 20px;
         }
 
-        footer { text-align: center; padding: 60px 20px; opacity: 0.6; font-size: 0.9rem; }
+        @keyframes livePulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 10px var(--live-green); }
+            50% { transform: scale(1.1); box-shadow: 0 0 20px var(--live-green); }
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        footer {
+            text-align: center;
+            padding: 80px 20px 40px;
+            opacity: 0.7;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 480px) {
+            .main-title { font-size: 2.2rem; }
+            html { scroll-padding-top: 220px; }
+            .search-area { margin: 30px auto 10px; }
+            .vtuber-grid { padding: 10px; gap: 30px; }
+        }
     </style>
 </head>
 <body>
 
-    <header id="main-header">
+    <header>
         <div class="logo-box">
-            <svg class="glider-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <!-- SVG simplificado para evitar path roto -->
-                <circle cx="12" cy="12" r="9"></circle>
+            <svg class="glider-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M11.571 4.714h1.715v5.143H11.57zm4.715 0H18v5.143h-1.714zM6 0L1.714 4.286v15.428h5.143V24l4.286-4.286h3.428L22.286 12V0zm14.571 11.143l-3.428 3.428h-3.429l-3 3v-3H6.857V1.714h13.714Z"/>
             </svg>
-            <div class="x-over">X</div>
+            <div class="x-over" aria-hidden="true">X</div>
         </div>
         <h1 class="main-title">INDIE<span>TACHADO</span></h1>
         <p>Pequeñas vs Gigantes 🐻 vs 🦈</p>
     </header>
 
-    <main>
-        <div class="search-area">
-            <label for="search" class="sr-only">Buscar VTubers indies</label>
-            <input type="text" id="search" class="search-input" aria-label="Buscar indies" placeholder="Busca a Phee o Negi...">
-        </div>
+    <div class="search-area">
+        <label for="search" class="visually-hidden">Buscar VTuber</label>
+        <input 
+            type="text" 
+            id="search" 
+            class="search-input" 
+            placeholder="Busca por nombre, bio o usuario..." 
+            aria-label="Buscar VTuber">
+    </div>
 
-        <section class="vtuber-grid" id="grid" aria-label="Listado de streamers"></section>
+    <main>
+        <section class="vtuber-grid" id="grid" aria-live="polite">
+            <!-- Las cards se insertan aquí con JS -->
+        </section>
     </main>
 
     <footer>
@@ -221,81 +278,93 @@
     </footer>
 
     <script>
-        // Mejora 3: Padding dinámico basado en la altura del header
-        const updatePadding = () => {
-            const header = document.getElementById('main-header');
-            document.body.style.paddingTop = (header.offsetHeight + 20) + 'px';
-        };
-
+        // DATOS DE LAS INDIES
         const indies = [
             {
                 name: "PheeTea",
                 user: "pheeteavt",
-                image: "https://static-cdn.jtvnw.net/jtv_user_pictures/51012891-b3b0-4613-8647-1981881656f5-profile_image-300x300.png",
                 bio: "Te cuento un cuento antes de dormir ☕❀",
                 live: true
             },
             {
                 name: "Negimi",
                 user: "negimilive",
-                image: "https://static-cdn.jtvnw.net/jtv_user_pictures/80097726-25f3-4d69-a83d-649033327660-profile_image-300x300.png",
                 bio: "Vibes misteriosas y diversión en cada stream 🌙",
                 live: false
             }
         ];
 
         const grid = document.getElementById('grid');
-        const search = document.getElementById('search');
+        const searchInput = document.getElementById('search');
 
-        function displayIndies(filter = '') {
+        function displayIndies(query = '') {
             grid.innerHTML = '';
-            const filtered = indies.filter(i => i.name.toLowerCase().includes(filter.toLowerCase()));
+            const filter = query.trim().toLowerCase();
 
-            filtered.forEach(i => {
-                const backupImg = `https://api.dicebear.com/7.x/adventurer/svg?seed=${i.user}&backgroundColor=9146FF`;
+            const filtered = indies.filter(indie =>
+                indie.name.toLowerCase().includes(filter) ||
+                indie.bio.toLowerCase().includes(filter) ||
+                indie.user.toLowerCase().includes(filter)
+            );
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '<p class="no-results">No se encontraron resultados 😢<br>Prueba con otro término.</p>';
+                return;
+            }
+
+            filtered.forEach((indie, index) => {
+                // 1° Prioridad: Tu imagen personalizada (desde la carpeta images)
+                const customImg = `images/${indie.user}-avatar.png`; // pheeteavt-avatar.png y negimilive-avatar.png
+                
+                // 2° Fallback: Imagen oficial de Twitch
+                const twitchImg = `https://static-cdn.jtvnw.net/jtv_user_pictures/${indie.user}-profile_image-300x300.png`;
+                
+                // 3° Último recurso: Avatar generado
+                const backupImg = `https://api.dicebear.com/7.x/adventurer/svg?seed=${indie.user}&backgroundColor=9146FF`;
+
                 const card = document.createElement('div');
                 card.className = 'card';
+                card.style.animationDelay = `${index * 0.1}s`;
+
                 card.innerHTML = `
                     <div class="avatar-frame">
-                        <img src="${i.image}" 
-                             alt="${i.name}" 
-                             width="220" height="220"
-                             loading="lazy" decoding="async"
-                             onerror="this.onerror=null; this.src='${backupImg}';">
+                        <img 
+                            src="${customImg}" 
+                            alt="Avatar de ${indie.name}" 
+                            loading="lazy"
+                            onerror="this.onerror=null; this.src='\( {twitchImg}'; this.onerror=null; this.src=' \){backupImg}';">
                     </div>
-                    <h2 class="name">${i.name}</h2>
-                    <div class="badges">
+                    <h2 class="name">${indie.name}</h2>
+                    <div class="badges" aria-label="Etiquetas">
                         <span class="badge b-indie">INDIE</span>
                         <span class="badge b-es">ES</span>
-                        ${i.live ? '<span class="badge b-live">EN VIVO</span>' : ''}
+                        ${indie.live ? '<span class="badge b-live" aria-label="En directo ahora">EN VIVO</span>' : ''}
                     </div>
-                    <p class="bio">${i.bio}</p>
-                    <a href="https://twitch.tv/${i.user}" 
-                       target="_blank" 
-                       rel="noopener noreferrer" 
-                       class="btn-twitch">Ver en Twitch</a>
+                    <p class="bio">${indie.bio}</p>
+                    <a href="https://twitch.tv/${indie.user}" target="_blank" rel="noopener" class="btn-twitch">
+                        Ver en Twitch
+                    </a>
                 `;
+
                 grid.appendChild(card);
             });
         }
 
-        // Mejora 7: Debounce para optimizar la búsqueda
-        function debounce(fn, wait = 200) {
-            let timeout;
-            return (...args) => {
-                clearTimeout(timeout);
-                timeout = setTimeout(() => fn(...args), wait);
-            };
-        }
-
-        search.addEventListener('input', debounce((e) => displayIndies(e.target.value)));
-
-        // Inicialización
-        window.addEventListener('load', () => {
-            updatePadding();
-            displayIndies();
-        });
-        window.addEventListener('resize', updatePadding);
+        searchInput.addEventListener('input', (e) => displayIndies(e.target.value));
+        displayIndies();
     </script>
+
+    <!-- Clase para lectores de pantalla -->
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+    </style>
 </body>
 </html>
