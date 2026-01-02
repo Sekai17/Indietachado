@@ -26,7 +26,7 @@
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
         html {
-            scroll-padding-top: 200px; /* Más espacio para header alto */
+            scroll-padding-top: 200px;
         }
 
         body {
@@ -78,10 +78,9 @@
 
         header p { margin-top: 8px; opacity: 0.9; }
 
-        /* BUSCADOR MÁS VISIBLE */
         .search-area {
             max-width: 800px;
-            margin: 30px auto 40px; /* Más espacio arriba para que no quede pegado */
+            margin: 30px auto 40px;
             padding: 0 20px;
             position: relative;
             z-index: 999;
@@ -104,7 +103,6 @@
             box-shadow: 0 0 20px rgba(145, 70, 255, 0.4);
         }
 
-        /* CONTADOR EN VIVO */
         .live-counter {
             text-align: center;
             font-size: 1.4rem;
@@ -112,7 +110,7 @@
             color: var(--live-green);
             font-weight: 800;
             text-shadow: 0 0 10px var(--live-green);
-            display: none; /* Se muestra con JS si hay lives */
+            display: none;
         }
 
         main { min-height: 60vh; }
@@ -188,7 +186,12 @@
             font-size: 1rem;
             color: var(--live-green);
             font-weight: bold;
-            min-height: 4em;
+            transition: height 0.3s ease, margin 0.3s ease;
+        }
+
+        .live-info:empty {
+            height: 0;
+            margin: 0;
         }
 
         .bio {
@@ -266,23 +269,22 @@
     </main>
 
     <footer>
-        <p>Hecho con ❤️ por la comunidad indie hispana – 2025</p>
+        <p>Hecho con ❤️ por la comunidad indie hispana – 2026</p>
     </footer>
 
     <script>
         const indies = [
             { name: "PheeTea", user: "pheeteavt", bio: "Te cuento un cuento antes de dormir ☕❀" },
-            { name: "Negimi", user: "negimilive", bio: "Vibes misteriosas y diversión en cada stream 🌙" }
-            // ¡Añade más fácil!
+            { name: "Negimi", user: "negimilive", bio: "Vibes misteriosas y diversión en cada stream 🌙" },
+            { name: "Empanadísima", user: "empanadisima_", bio: "Empanadas, vibes y caos total 🥟🔥" } // ¡Cambia la bio por la real!
         ];
 
         const grid = document.getElementById('grid');
         const searchInput = document.getElementById('search');
         const liveCounter = document.getElementById('liveCounter');
 
-        let cards = []; // Guardamos referencias a las cards
+        let cards = [];
 
-        // Funciones DecAPI
         async function getUptime(user) {
             try { const res = await fetch(`https://decapi.me/twitch/uptime/${user}`); return await res.text(); }
             catch { return "offline"; }
@@ -298,7 +300,6 @@
             catch { return ""; }
         }
 
-        // Crear cards una sola vez
         function createCards(query = '') {
             grid.innerHTML = '';
             cards = [];
@@ -343,7 +344,6 @@
             });
         }
 
-        // Actualizar solo estados en vivo (sin parpadeo)
         async function updateLiveStatuses() {
             let liveCount = 0;
             const liveFirst = [];
@@ -375,31 +375,27 @@
                 }
             }
 
-            // Reordenar: lives arriba
             if (liveCount > 0) {
                 liveCounter.textContent = `\( {liveCount} indie \){liveCount > 1 ? 's' : ''} en vivo ahora 🔥`;
                 liveCounter.style.display = 'block';
 
-                // Mover cards en vivo al principio
                 liveFirst.concat(offline).forEach(item => {
                     const cardEl = cards.find(c => c.indie.user === item.indie.user).card;
-                    grid.prepend(cardEl); // Mueve arriba
+                    grid.prepend(cardEl);
                 });
             } else {
                 liveCounter.style.display = 'none';
             }
         }
 
-        // Eventos
         searchInput.addEventListener('input', (e) => {
             createCards(e.target.value);
-            updateLiveStatuses(); // Actualiza inmediatamente después de filtrar
+            updateLiveStatuses();
         });
 
-        // Inicial
         createCards();
         updateLiveStatuses();
-        setInterval(updateLiveStatuses, 60000); // Cada minuto, suave
+        setInterval(updateLiveStatuses, 60000);
     </script>
 
     <style>
